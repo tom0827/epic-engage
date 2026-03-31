@@ -1,9 +1,9 @@
 """Service for report setting management."""
 
+from met_api.constants.report_setting_type import FormIoComponentType
 from met_api.models.report_setting import ReportSetting as ReportSettingModel
 from met_api.models.survey import Survey as SurveyModel
 from met_api.schemas.report_setting import ReportSettingSchema
-from met_api.constants.report_setting_type import FormIoComponentType
 
 
 class ReportSettingService:

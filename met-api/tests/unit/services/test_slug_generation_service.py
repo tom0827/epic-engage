@@ -17,6 +17,7 @@ Test suite to ensure that the Slug Generation Service is generating as expected.
 """
 
 import pytest
+
 from met_api.services.slug_generation_service import SlugGenerationService
 
 

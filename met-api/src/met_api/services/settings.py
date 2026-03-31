@@ -1,6 +1,7 @@
 """Settings service for managing tenant settings."""
 
 from typing import List
+
 from ..models.settings import Settings
 
 

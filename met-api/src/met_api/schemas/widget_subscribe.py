@@ -17,10 +17,9 @@ from marshmallow import fields
 from marshmallow_enum import EnumField
 
 from met_api.models import WidgetSubscribe as WidgetSubscribeModel
-
+from ..constants.subscribe_types import SubscribeTypes
 from .base_schema import BaseSchema
 from .subscribe_item import SubscribeItemSchema
-from ..constants.subscribe_types import SubscribeTypes
 
 
 class WidgetSubscribeSchema(BaseSchema):  # pylint: disable=too-many-ancestors, too-few-public-methods

@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 from flask import current_app, g
 
+from met_api.config import get_gc_notify_config
 from met_api.exceptions.business_exception import BusinessException
 from met_api.models.pagination_options import PaginationOptions
 from met_api.models.staff_user import StaffUser as StaffUserModel
@@ -13,7 +14,6 @@ from met_api.utils.constants import GROUP_NAME_MAPPING, Groups
 from met_api.utils.enums import KeycloakGroupName
 from met_api.utils.roles import Role
 from met_api.utils.template import Template
-from met_api.config import get_gc_notify_config
 
 
 KEYCLOAK_SERVICE = KeycloakService()

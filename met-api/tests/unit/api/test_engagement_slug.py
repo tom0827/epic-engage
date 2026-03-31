@@ -16,11 +16,11 @@
 
 Test-Suite to ensure that the /Engagement slug endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 
-import pytest
 from faker import Faker
+import pytest
 
 from met_api.constants.engagement_status import Status
 from met_api.utils.enums import ContentType

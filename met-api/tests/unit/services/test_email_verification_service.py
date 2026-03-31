@@ -18,8 +18,8 @@ Test-Suite to ensure that the UserService is working as expected.
 """
 from unittest.mock import patch
 
-import pytest
 from faker import Faker
+import pytest
 
 from met_api.exceptions.business_exception import BusinessException
 from met_api.services.email_verification_service import EmailVerificationService

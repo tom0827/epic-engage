@@ -17,12 +17,12 @@
 Test-Suite to ensure that the /Engagement endpoint is working as expected.
 """
 import copy
-import json
 from http import HTTPStatus
+import json
 
-import pytest
 from faker import Faker
 from flask import current_app
+import pytest
 
 from met_api.constants.engagement_status import EngagementDisplayStatus, SubmissionStatus
 from met_api.constants.engagement_visibility import Visibility
@@ -35,6 +35,7 @@ from tests.utilities.factory_utils import (
     factory_auth_header, factory_engagement_model, factory_membership_model, factory_participant_model,
     factory_staff_user_model, factory_submission_model, factory_survey_and_eng_model, factory_tenant_model,
     set_global_tenant)
+
 
 fake = Faker()
 

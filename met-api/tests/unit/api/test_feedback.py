@@ -20,7 +20,6 @@ import json
 
 from met_api.constants.feedback import FeedbackSourceType, FeedbackStatusType
 from met_api.utils.enums import ContentType
-
 from tests.utilities.factory_scenarios import TestJwtClaims
 from tests.utilities.factory_utils import factory_auth_header, factory_feedback_model
 

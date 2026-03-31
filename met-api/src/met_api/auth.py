@@ -18,6 +18,7 @@ from flask import g, request
 from flask_jwt_oidc import JwtManager
 from flask_jwt_oidc.exceptions import AuthError
 
+
 jwt = (
     JwtManager()
 )  # pylint: disable=invalid-name; lower case name as used by convention in most Flask apps

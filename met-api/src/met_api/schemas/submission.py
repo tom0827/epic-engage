@@ -4,9 +4,9 @@ Manages the submission
 """
 
 from marshmallow import EXCLUDE, Schema, fields
+
 from met_api.schemas.comment import CommentSchema, PublicCommentSchema
 from met_api.schemas.staff_note import StaffNoteSchema
-
 from .survey import SurveySchema
 
 

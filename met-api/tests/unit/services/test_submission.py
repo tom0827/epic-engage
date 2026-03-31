@@ -17,13 +17,12 @@ Test suite to ensure that the Submission service routines are working as expecte
 """
 from unittest.mock import patch
 
-from met_api.services import authorization
 from met_api.constants.comment_status import Status
 from met_api.schemas.submission import SubmissionSchema
+from met_api.services import authorization
 from met_api.services.comment_service import CommentService
 from met_api.services.email_verification_service import EmailVerificationService
 from met_api.services.submission_service import SubmissionService
-
 from tests.utilities.factory_utils import (
     factory_comment_model, factory_email_verification, factory_engagement_setting_model, factory_participant_model,
     factory_staff_user_model, factory_submission_model, factory_survey_and_eng_model)

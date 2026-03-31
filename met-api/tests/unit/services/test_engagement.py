@@ -24,6 +24,7 @@ from met_api.services.engagement_service import EngagementService
 from tests.utilities.factory_scenarios import TestEngagementInfo, TestJwtClaims
 from tests.utilities.factory_utils import factory_engagement_model, factory_staff_user_model, patch_token_info
 
+
 fake = Faker()
 date_format = '%Y-%m-%d'
 

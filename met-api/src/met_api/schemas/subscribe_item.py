@@ -14,7 +14,6 @@
 """Manager for widget link schema and export."""
 
 from met_api.models import SubscribeItem as SubscribeItemModel
-
 from .base_schema import BaseSchema
 
 

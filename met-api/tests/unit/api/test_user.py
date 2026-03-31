@@ -28,6 +28,7 @@ from met_api.utils.enums import ContentType, KeycloakGroupName, UserStatus
 from tests.utilities.factory_scenarios import TestJwtClaims, TestUserInfo
 from tests.utilities.factory_utils import factory_auth_header, factory_staff_user_model, set_global_tenant
 
+
 KEYCLOAK_SERVICE_MODULE = 'met_api.services.keycloak.KeycloakService'
 
 

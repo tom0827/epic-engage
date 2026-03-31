@@ -1,5 +1,6 @@
 """Service for generating slugs."""
 from slugify import UniqueSlugify
+
 from met_api.config import _Config
 
 

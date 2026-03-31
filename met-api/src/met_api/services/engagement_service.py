@@ -4,10 +4,12 @@ from http import HTTPStatus
 
 from flask import current_app
 
+from met_api.config import get_gc_notify_config
 from met_api.constants.engagement_status import Status
 from met_api.constants.engagement_visibility import Visibility
 from met_api.constants.membership_type import MembershipType
 from met_api.exceptions.business_exception import BusinessException
+from met_api.models import Tenant as TenantModel
 from met_api.models.engagement import Engagement as EngagementModel
 from met_api.models.engagement_scope_options import EngagementScopeOptions
 from met_api.models.engagement_settings import EngagementSettingsModel
@@ -20,15 +22,12 @@ from met_api.services import authorization
 from met_api.services.engagement_settings_service import EngagementSettingsService
 from met_api.services.engagement_slug_service import EngagementSlugService
 from met_api.services.object_storage_service import ObjectStorageService
-
 from met_api.services.project_service import ProjectService
 from met_api.utils import email_util, notification
 from met_api.utils.enums import SourceAction, SourceType
 from met_api.utils.roles import Role
 from met_api.utils.template import Template
 from met_api.utils.token_info import TokenInfo
-from met_api.models import Tenant as TenantModel
-from met_api.config import get_gc_notify_config
 
 
 class EngagementService:

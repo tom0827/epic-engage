@@ -6,8 +6,8 @@ from __future__ import annotations
 
 from typing import List
 
-from sqlalchemy.sql.schema import ForeignKey
 import sqlalchemy as sa
+from sqlalchemy.sql.schema import ForeignKey
 
 from .base_model import BaseModel
 from .db import db

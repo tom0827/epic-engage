@@ -26,6 +26,7 @@ from met_api.schemas.memberships import MembershipSchema
 from met_api.services.membership_service import MembershipService
 from met_api.utils.util import allowedorigins, cors_preflight
 
+
 API = Namespace('engagements', description='Endpoints for Engagements Management')
 """Custom exception messages
 """

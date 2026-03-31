@@ -5,6 +5,7 @@ Manages the Email verification
 
 from marshmallow import EXCLUDE, Schema, fields
 from marshmallow_enum import EnumField
+
 from met_api.constants.email_verification import EmailVerificationType
 
 

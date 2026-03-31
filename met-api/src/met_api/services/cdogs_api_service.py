@@ -15,13 +15,13 @@
 
 """Service for receipt generation."""
 import base64
+from http import HTTPStatus
 import json
 import os
 import re
-from http import HTTPStatus
 
-import requests
 from flask import current_app
+import requests
 
 from met_api.config import _Config
 

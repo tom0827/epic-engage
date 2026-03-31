@@ -1,12 +1,13 @@
 """Service for Email Verification management."""
-import uuid
 from datetime import datetime, timedelta
 from http import HTTPStatus
+import uuid
 
 from flask import current_app
+
+from met_api.config import get_gc_notify_config
 from met_api.constants.email_verification import INTERNAL_EMAIL_DOMAIN, EmailVerificationType
 from met_api.constants.engagement_visibility import Visibility
-
 from met_api.constants.subscription_type import SubscriptionTypes
 from met_api.exceptions.business_exception import BusinessException
 from met_api.models import Engagement as EngagementModel
@@ -20,7 +21,6 @@ from met_api.services.participant_service import ParticipantService
 from met_api.utils import notification
 from met_api.utils.analytics import track_email_verification
 from met_api.utils.template import Template
-from met_api.config import get_gc_notify_config
 
 
 class EmailVerificationService:

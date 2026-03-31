@@ -16,8 +16,8 @@
 import json
 from typing import List
 
-import requests
 from flask import current_app
+import requests
 
 from met_api.utils.enums import ContentType
 

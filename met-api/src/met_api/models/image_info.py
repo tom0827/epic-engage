@@ -6,7 +6,6 @@ Manages the ImageInfo
 from sqlalchemy import asc, desc
 from sqlalchemy.sql import text
 
-
 from met_api.models import db
 from met_api.models.base_model import BaseModel
 from met_api.models.pagination_options import PaginationOptions

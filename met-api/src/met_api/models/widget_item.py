@@ -3,10 +3,10 @@
 Manages the widget_item
 """
 from __future__ import annotations
+
 from datetime import datetime
 
 from sqlalchemy.sql.schema import ForeignKey
-
 
 from .base_model import BaseModel
 from .db import db

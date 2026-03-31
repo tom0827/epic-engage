@@ -6,9 +6,9 @@ from met_api.models.staff_user import StaffUser as StaffUserModel
 from met_api.schemas.staff_user import StaffUserSchema
 from met_api.services.membership_service import MembershipService
 from met_api.services.staff_user_service import KEYCLOAK_SERVICE, StaffUserService
-from met_api.utils.user_context import UserContext, user_context
 from met_api.utils.constants import Groups
 from met_api.utils.enums import UserStatus
+from met_api.utils.user_context import UserContext, user_context
 
 
 class StaffUserMembershipService:

@@ -8,9 +8,9 @@ from typing import List
 
 from sqlalchemy.sql.schema import ForeignKey
 
+from ..constants.event_types import EventTypes
 from .base_model import BaseModel
 from .db import db
-from ..constants.event_types import EventTypes
 
 
 class WidgetEvents(BaseModel):  # pylint: disable=too-few-public-methods

@@ -16,13 +16,14 @@
 
 Test-Suite to ensure that the UserService is working as expected.
 """
-import pytest
 from faker import Faker
+import pytest
 
 from met_api.schemas.staff_user import StaffUserSchema
 from met_api.services.staff_user_service import StaffUserService
 from tests.utilities.factory_scenarios import TestUserInfo
 from tests.utilities.factory_utils import factory_staff_user_model, set_global_tenant
+
 
 fake = Faker()
 

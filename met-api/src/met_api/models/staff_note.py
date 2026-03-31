@@ -7,8 +7,8 @@ from __future__ import annotations
 from sqlalchemy import and_
 from sqlalchemy.sql.schema import ForeignKey
 
-from .db import db
 from .base_model import BaseModel
+from .db import db
 
 
 class StaffNote(BaseModel):

@@ -16,12 +16,12 @@
 
 Test-Suite to ensure that the /images endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 
+from faker import Faker
 from flask import current_app
 import pytest
-from faker import Faker
 
 from met_api.models.image_info import ImageInfo
 from met_api.utils.enums import ContentType

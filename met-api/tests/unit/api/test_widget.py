@@ -16,8 +16,8 @@
 
 Test-Suite to ensure that the Widget endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 
 import pytest
 

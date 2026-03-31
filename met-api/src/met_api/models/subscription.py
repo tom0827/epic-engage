@@ -3,11 +3,12 @@
 Manages the Subscription
 """
 from __future__ import annotations
+
 from datetime import datetime
+
 from sqlalchemy import ForeignKey
 
 from met_api.constants.subscription_type import SubscriptionType
-
 from .base_model import BaseModel
 from .db import db
 

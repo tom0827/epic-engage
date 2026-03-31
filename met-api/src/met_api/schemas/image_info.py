@@ -1,5 +1,6 @@
 """Image Info schema class."""
 from marshmallow import EXCLUDE, Schema, fields
+
 from met_api.services.object_storage_service import ObjectStorageService
 
 

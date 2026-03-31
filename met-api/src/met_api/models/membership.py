@@ -11,7 +11,6 @@ from sqlalchemy import ForeignKey, and_, or_
 
 from met_api.constants.membership_type import MembershipType
 from met_api.utils.enums import MembershipStatus
-
 from .base_model import BaseModel
 from .db import db
 from .staff_user import StaffUser

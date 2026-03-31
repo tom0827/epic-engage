@@ -1,8 +1,8 @@
 """Service for engagement slug management."""
-from met_api.models.engagement_slug import EngagementSlug as EngagementSlugModel
-from met_api.models.engagement import Engagement as EngagementModel
-from met_api.services.project_service import ProjectService
 from met_api.constants.engagement_status import Status
+from met_api.models.engagement import Engagement as EngagementModel
+from met_api.models.engagement_slug import EngagementSlug as EngagementSlugModel
+from met_api.services.project_service import ProjectService
 from met_api.services.slug_generation_service import SlugGenerationService
 
 

@@ -20,8 +20,8 @@ import json
 
 from faker import Faker
 
-from met_api.utils.enums import ContentType
 from met_api.constants.event_types import EventTypes
+from met_api.utils.enums import ContentType
 from tests.utilities.factory_scenarios import TestEventInfo, TestJwtClaims, TestWidgetInfo
 from tests.utilities.factory_utils import factory_auth_header, factory_engagement_model, factory_widget_model
 

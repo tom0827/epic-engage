@@ -16,11 +16,11 @@
 
 Test-Suite to ensure that the /user endpoint is working as expected.
 """
-import json
-
 from http import HTTPStatus
-from faker import Faker
+import json
 from unittest.mock import patch
+
+from faker import Faker
 import pytest
 
 from met_api.constants.email_verification import EmailVerificationType
@@ -30,6 +30,7 @@ from met_api.utils.enums import ContentType
 from tests.utilities.factory_scenarios import TestJwtClaims
 from tests.utilities.factory_utils import (
     factory_auth_header, factory_email_verification, factory_survey_and_eng_model, set_global_tenant)
+
 
 fake = Faker()
 
