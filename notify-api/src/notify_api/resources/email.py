@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints to check manage notifications."""
 from flask import jsonify, request
+
 from flask_restx import Namespace, Resource
 
 from notify_api.auth import Auth
@@ -30,5 +31,6 @@ class EmailNotification(Resource):
     def post():
         """Send email notification."""
         email_payload = request.get_json(force=True)
-        get_email_service().send(email_payload)
-        return jsonify({})
+        response = get_email_service().send(email_payload)
+        notification_id = response.get('id') if response else None
+        return jsonify({'notification_id': notification_id})
