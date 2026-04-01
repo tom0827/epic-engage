@@ -1,13 +1,13 @@
 
 """Service for object storage management."""
 import os
-import uuid
 from typing import List
+import uuid
 
-import requests
 from aws_requests_auth.aws_auth import AWSRequestsAuth
-from markupsafe import string
 from flask import current_app
+from markupsafe import string
+import requests
 
 from met_api.config import get_s3_config
 from met_api.schemas.document import Document

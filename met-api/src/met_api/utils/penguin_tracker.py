@@ -21,13 +21,13 @@ Session continuity is maintained by reading the X-Analytics-Session-Id header
 from incoming requests, which the frontend includes with all API calls.
 """
 
-import logging
-import uuid
 from datetime import datetime, timezone
+import logging
 from typing import Any, Dict, Optional
+import uuid
 
-import requests
 from flask import request
+import requests
 
 from met_api.utils.analytics import AnalyticsEvent, BaseAnalyticsProvider
 

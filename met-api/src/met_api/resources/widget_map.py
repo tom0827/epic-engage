@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """API endpoints for managing map resource."""
-import json
 from http import HTTPStatus
+import json
 
 from flask import jsonify, request
 from flask_cors import cross_origin

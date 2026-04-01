@@ -26,6 +26,7 @@ from met_api.utils.datetime import local_datetime
 from tests.utilities.factory_scenarios import TestEngagementInfo
 from tests.utilities.factory_utils import factory_engagement_model, factory_survey_model
 
+
 fake = Faker()
 
 

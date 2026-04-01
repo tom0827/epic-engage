@@ -18,8 +18,9 @@ from flask import g
 from sqlalchemy import Column
 from sqlalchemy.ext.declarative import declared_attr
 
-from .db import db
 from ..utils.token_info import TokenInfo
+from .db import db
+
 
 TENANT_ID = 'tenant_id'
 

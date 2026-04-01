@@ -16,8 +16,8 @@
 
 Test-Suite to ensure that the /Comment endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 from unittest.mock import MagicMock, patch
 
 from faker import Faker

@@ -3,27 +3,26 @@
 Manages the comment
 """
 from __future__ import annotations
+
 from datetime import datetime
 from operator import or_
 
 from sqlalchemy import and_, asc, desc
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.sql import text
 from sqlalchemy.sql.expression import true
 from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy.ext.hybrid import hybrid_property
-
 
 from met_api.constants.comment_status import Status as CommentStatus
 from met_api.constants.engagement_status import Status as EngagementStatus
+from met_api.models.engagement import Engagement
 from met_api.models.engagement_settings import EngagementSettingsModel
 from met_api.models.pagination_options import PaginationOptions
-from met_api.models.engagement import Engagement
 from met_api.models.report_setting import ReportSetting
 from met_api.models.submission import Submission
 from met_api.models.survey import Survey
 from met_api.schemas.comment import CommentSchema
 from met_api.schemas.submission import SubmissionSchema
-
 from .base_model import BaseModel
 from .comment_status import CommentStatus as CommentStatusModel
 from .db import db

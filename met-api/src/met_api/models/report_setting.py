@@ -6,8 +6,8 @@ questions will either be displayed/hidden on the dashboard
 from __future__ import annotations
 
 from sqlalchemy import ForeignKey
-from met_api.schemas.report_setting import ReportSettingSchema
 
+from met_api.schemas.report_setting import ReportSettingSchema
 from .base_model import BaseModel
 from .db import db
 

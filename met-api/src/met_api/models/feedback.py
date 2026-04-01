@@ -9,7 +9,6 @@ from sqlalchemy.sql import text
 
 from met_api.constants.feedback import CommentType, FeedbackSourceType, FeedbackStatusType, RatingType
 from met_api.models.pagination_options import PaginationOptions
-
 from .base_model import BaseModel
 from .db import db
 

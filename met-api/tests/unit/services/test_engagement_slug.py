@@ -15,13 +15,14 @@
 
 Test suite to ensure that the Engagement slug service routines are working as expected.
 """
-import pytest
 from faker import Faker
+import pytest
 
 from met_api.constants.engagement_status import Status
 from met_api.services.engagement_slug_service import EngagementSlugService
-from tests.utilities.factory_utils import factory_engagement_model, factory_engagement_slug_model
 from tests.utilities.factory_scenarios import TestEngagementInfo, TestEngagementSlugInfo
+from tests.utilities.factory_utils import factory_engagement_model, factory_engagement_slug_model
+
 
 fake = Faker()
 

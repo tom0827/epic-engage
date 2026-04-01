@@ -4,6 +4,7 @@ from http import HTTPStatus
 
 from flask import current_app
 
+from met_api.config import get_gc_notify_config
 from met_api.constants.comment_status import Status
 from met_api.constants.email_verification import EmailVerificationType
 from met_api.constants.engagement_status import Status as EngagementStatus
@@ -33,7 +34,6 @@ from met_api.utils import notification
 from met_api.utils.datetime import local_datetime
 from met_api.utils.roles import Role
 from met_api.utils.template import Template
-from met_api.config import get_gc_notify_config
 
 
 class SubmissionService:

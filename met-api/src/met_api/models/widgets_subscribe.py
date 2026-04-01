@@ -8,9 +8,9 @@ from typing import List
 
 from sqlalchemy.sql.schema import ForeignKey
 
+from ..constants.subscribe_types import SubscribeTypes
 from .base_model import BaseModel
 from .db import db
-from ..constants.subscribe_types import SubscribeTypes
 
 
 class WidgetSubscribe(BaseModel):  # pylint: disable=too-few-public-methods

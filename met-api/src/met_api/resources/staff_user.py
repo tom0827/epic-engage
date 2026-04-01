@@ -32,6 +32,7 @@ from met_api.utils.tenant_validator import require_role
 from met_api.utils.token_info import TokenInfo
 from met_api.utils.util import allowedorigins, cors_preflight
 
+
 API = Namespace('user', description='Endpoints for User Management')
 """Custom exception messages
 """

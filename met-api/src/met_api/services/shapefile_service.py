@@ -14,14 +14,14 @@
 
 
 """Service for shapefile service."""
+from http import HTTPStatus
 import json
 import os
 import shutil
 import zipfile
-from http import HTTPStatus
 
-import geopandas as gpd
 from flask import current_app
+import geopandas as gpd
 from werkzeug.utils import secure_filename
 
 from met_api.exceptions.business_exception import BusinessException

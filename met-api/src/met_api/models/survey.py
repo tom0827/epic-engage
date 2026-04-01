@@ -19,7 +19,6 @@ from met_api.models.pagination_options import PaginationOptions
 from met_api.models.survey_search_options import SurveySearchOptions
 from met_api.schemas.survey import SurveySchema
 from met_api.utils.datetime import local_datetime
-
 from .base_model import BaseModel
 from .db import db
 

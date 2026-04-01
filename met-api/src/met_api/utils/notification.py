@@ -3,8 +3,9 @@
 import json
 import re
 
-import requests
 from flask import current_app
+import requests
+
 from met_api.models.tenant import Tenant
 from met_api.services.rest_service import RestService
 

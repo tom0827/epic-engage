@@ -19,6 +19,7 @@ Test-Suite to ensure that the Keycloak Service is working as expected.
 from met_api.services.keycloak import KeycloakService
 from tests.utilities.factory_scenarios import KeycloakScenario
 
+
 KEYCLOAK_SERVICE = KeycloakService()
 
 

@@ -17,9 +17,9 @@ This module provides the main analytics interface using Snowplow.
 Service code imports from here for easy future provider switching.
 """
 
-import logging
 from abc import ABC, abstractmethod
 from enum import Enum
+import logging
 from typing import Any, Dict, List, Optional
 
 
@@ -408,8 +408,8 @@ def init_analytics(app):
     Args:
         app: The Flask application instance
     """
-    from met_api.utils.snowplow_tracker import SnowplowTracker
     from met_api.utils.penguin_tracker import PenguinTracker
+    from met_api.utils.snowplow_tracker import SnowplowTracker
 
     with app.app_context():
         try:

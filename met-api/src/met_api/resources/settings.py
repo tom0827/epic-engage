@@ -27,6 +27,7 @@ from met_api.utils.roles import Role
 from met_api.utils.tenant_validator import require_role
 from met_api.utils.util import allowedorigins, cors_preflight
 
+
 API = Namespace('settings', description='Endpoints for Settings Management')
 
 

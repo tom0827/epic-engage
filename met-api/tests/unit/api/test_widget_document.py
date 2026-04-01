@@ -16,8 +16,8 @@
 
 Test-Suite to ensure that the Widget endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 
 from faker import Faker
 import pytest
@@ -26,6 +26,7 @@ from met_api.utils.enums import ContentType, WidgetDocumentType
 from tests.utilities.factory_scenarios import TestJwtClaims, TestWidgetDocumentInfo, TestWidgetInfo
 from tests.utilities.factory_utils import (
     factory_auth_header, factory_document_model, factory_engagement_model, factory_widget_model)
+
 
 fake = Faker()
 

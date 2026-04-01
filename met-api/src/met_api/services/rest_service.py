@@ -15,8 +15,8 @@
 import json
 from typing import Iterable
 
-import requests
 from flask import current_app, request
+import requests
 from requests.exceptions import ConnectTimeout, HTTPError
 # pylint:disable=ungrouped-imports
 from requests.exceptions import ConnectionError as ReqConnectionError

@@ -15,7 +15,6 @@ from met_api.constants.user import SYSTEM_REVIEWER
 from met_api.models.participant import Participant
 from met_api.models.survey import Survey
 from met_api.schemas.submission import SubmissionSchema
-
 from .base_model import BaseModel
 from .db import db
 

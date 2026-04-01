@@ -3,12 +3,13 @@
 Manages the Email verification
 """
 from __future__ import annotations
+
 from datetime import datetime
+
 from sqlalchemy import ForeignKey
 
 from met_api.constants.email_verification import EmailVerificationType
 from met_api.schemas.email_verification import EmailVerificationSchema
-
 from .base_model import BaseModel
 from .db import db
 

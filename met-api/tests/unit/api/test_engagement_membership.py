@@ -3,8 +3,8 @@ Tests to verify the EngagementMembership API endpoints.
 
 Test-Suite to ensure that the /engagements/{engagement_id}/memberships endpoint is working as expected.
 """
-import json
 from http import HTTPStatus
+import json
 from unittest.mock import MagicMock
 
 from met_api.constants.membership_type import MembershipType

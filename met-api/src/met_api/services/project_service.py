@@ -1,6 +1,6 @@
 """Service for project management."""
-import logging
 from http import HTTPStatus
+import logging
 
 from flask import current_app
 

@@ -3,7 +3,6 @@ from marshmallow import EXCLUDE, Schema, fields
 from marshmallow_enum import EnumField
 
 from met_api.constants.membership_type import MembershipType
-
 from .staff_user import StaffUserSchema
 
 

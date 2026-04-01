@@ -3,9 +3,9 @@
 Manages the participant
 """
 from __future__ import annotations
+
 from flask import current_app
 from itsdangerous import URLSafeSerializer
-
 from sqlalchemy import Column
 
 from .base_model import BaseModel

@@ -1,8 +1,8 @@
 """Service for image management."""
+from met_api.models.image_info import ImageInfo as ImageInfoModel
 from met_api.models.pagination_options import PaginationOptions
 from met_api.schemas.image_info import ImageInfoSchema
 from met_api.services.object_storage_service import ObjectStorageService
-from met_api.models.image_info import ImageInfo as ImageInfoModel
 
 
 class ImageInfoService:

@@ -3,16 +3,15 @@
 Manages the widget
 """
 from __future__ import annotations
+
 from datetime import datetime
 from typing import Optional
 
 from sqlalchemy.sql.schema import ForeignKey
 
-
-from .widget_item import WidgetItem
-
 from .base_model import BaseModel
 from .db import db
+from .widget_item import WidgetItem
 
 
 class Widget(BaseModel):  # pylint: disable=too-few-public-methods

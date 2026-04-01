@@ -17,11 +17,11 @@
 Test-Suite to ensure that the /Engagement endpoint is working as expected.
 """
 import copy
-import json
 from http import HTTPStatus
+import json
 
-import pytest
 from flask import current_app
+import pytest
 
 from met_api.constants.engagement_status import Status
 from met_api.models.engagement import Engagement as EngagementModel
