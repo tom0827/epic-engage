@@ -324,3 +324,49 @@ def test_sort_files(client, jwt, session):
     assert rv.status_code == HTTPStatus.OK
     reset_order = [doc['id'] for doc in retrieved_folder.get('children') if doc.get('type') == 'file']
     assert reset_order == initial_order
+
+
+def test_sort_top_level_mixed_documents(client, jwt, session):
+    """Test sorting of top-level mixed folders and files."""
+    engagement = factory_engagement_model()
+    widget = factory_widget_model({'engagement_id': engagement.id})
+
+    folder1 = factory_document_model({
+        'widget_id': widget.id,
+        'title': 'Folder A',
+        'type': 'folder',
+    })
+    top_file = factory_document_model({
+        'widget_id': widget.id,
+        'title': 'Top File',
+        'type': 'file',
+        'url': 'https://example.com',
+        'parent_document_id': None,
+    })
+    folder2 = factory_document_model({
+        'widget_id': widget.id,
+        'title': 'Folder B',
+        'type': 'folder',
+    })
+
+    headers = factory_auth_header(jwt=jwt, claims=TestJwtClaims.staff_admin_role)
+
+    # Move the top-level file to the first position.
+    desired_order = [top_file.id, folder2.id, folder1.id]
+    reorder_dict = [{'id': doc_id} for doc_id in desired_order]
+
+    rv = client.patch(
+        f'/api/widgets/{widget.id}/documents/order',
+        data=json.dumps({'documents': reorder_dict}),
+        headers=headers,
+        content_type=ContentType.JSON.value,
+    )
+    assert rv.status_code == HTTPStatus.OK
+
+    # Verify persisted ordering keeps mixed top-level items in the requested order.
+    rv = client.get(f'/api/widgets/{widget.id}/documents', headers=headers, content_type=ContentType.JSON.value)
+    assert rv.status_code == HTTPStatus.OK
+
+    updated_order = [doc['id'] for doc in rv.json['children']]
+    assert updated_order == desired_order
+    assert rv.json['children'][0]['type'] == WidgetDocumentType.FILE.value

@@ -19,30 +19,37 @@ class WidgetDocumentService:
         docs = WidgetDocumentsModel.get_all_by_widget_id(widget_id)
         if not docs:
             return {}
-        # create all folders structure
+
         root = AnyNode()
-        WidgetDocumentService._attach_folder_nodes(docs, root)
-        WidgetDocumentService._attach_file_nodes(docs, root)
+        WidgetDocumentService._attach_root_nodes(docs, root)
+        WidgetDocumentService._attach_child_file_nodes(docs, root)
 
         exporter = DictExporter()
         return exporter.export(root)
 
     @staticmethod
-    def _attach_file_nodes(docs, root):
-        files = list(filter(lambda doc: doc.type == WidgetDocumentType.FILE.value, docs))
-        for file in files:
-            props = WidgetDocumentService._fetch_props(file)
-            parent_node = root
-            if parent_id := file.parent_document_id:
-                parent_node = find_by_attr(root, parent_id, name='id')
-            AnyNode(**props, parent=parent_node)
+    def _sort_docs_by_index(docs):
+        return sorted(docs, key=lambda doc: ((doc.sort_index or 0), doc.id))
 
     @staticmethod
-    def _attach_folder_nodes(docs, root):
-        folders = list(filter(lambda doc: doc.type == WidgetDocumentType.FOLDER.value, docs))
-        for folder in folders:
-            props = WidgetDocumentService._fetch_props(folder)
+    def _attach_root_nodes(docs, root):
+        top_level_docs = list(filter(lambda doc: doc.parent_document_id is None, docs))
+        for doc in WidgetDocumentService._sort_docs_by_index(top_level_docs):
+            props = WidgetDocumentService._fetch_props(doc)
             AnyNode(**props, parent=root)
+
+    @staticmethod
+    def _attach_child_file_nodes(docs, root):
+        child_files = list(filter(
+            lambda doc: doc.type == WidgetDocumentType.FILE.value and doc.parent_document_id is not None,
+            docs,
+        ))
+        for file in WidgetDocumentService._sort_docs_by_index(child_files):
+            parent_node = find_by_attr(root, file.parent_document_id, name='id')
+            if parent_node is None:
+                continue
+            props = WidgetDocumentService._fetch_props(file)
+            AnyNode(**props, parent=parent_node)
 
     @staticmethod
     def _fetch_props(doc):
