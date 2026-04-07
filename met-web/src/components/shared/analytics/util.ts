@@ -33,7 +33,7 @@ export const getMapImageDataUrl = async (projectMapData: IMap | null): Promise<s
         center: [projectMapData.longitude, projectMapData.latitude],
         zoom: calculateZoomLevel(300, 300, geoJSONDecode(projectMapData.geojson)),
     });
-    const geojson = projectMapData.geojson ? JSON.parse(projectMapData.geojson.replace(/\\/g, '')) : null;
+    const geojson = geoJSONDecode(projectMapData.geojson);
     // Add marker
     map.on('load', function () {
         map.addLayer({

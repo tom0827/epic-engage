@@ -49,4 +49,4 @@ class ShapeFile(Resource):
             response.headers['Content-Type'] = 'application/json'
             return response, HTTPStatus.OK
         except BusinessException as err:
-            return str(err), err.status_code
+            return jsonify({'message': err.error}), err.status_code
