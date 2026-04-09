@@ -1,6 +1,25 @@
 import { GeoJSON } from 'geojson';
 import * as turf from '@turf/turf';
 
+const isGeoJSONObject = (value: unknown): value is GeoJSON => {
+    if (!value || typeof value !== 'object') {
+        return false;
+    }
+
+    return typeof (value as { type?: unknown }).type === 'string';
+};
+
+const parseGeoJSONCandidate = (value: string): GeoJSON | undefined => {
+    const parsed = JSON.parse(value);
+
+    if (typeof parsed === 'string') {
+        const nestedParsed = JSON.parse(parsed);
+        return isGeoJSONObject(nestedParsed) ? nestedParsed : undefined;
+    }
+
+    return isGeoJSONObject(parsed) ? parsed : undefined;
+};
+
 export const calculateZoomLevel = (mapWidth: number, mapHeight: number, geojson?: GeoJSON) => {
     const ZOOM_MAX = 21;
 
@@ -35,6 +54,28 @@ export const calculateZoomLevel = (mapWidth: number, mapHeight: number, geojson?
 };
 
 export const geoJSONDecode = (geojson_string?: string) => {
-    const geojson: GeoJSON = geojson_string ? JSON.parse(geojson_string.replace(/\\/g, '')) : undefined;
-    return geojson;
+    if (!geojson_string) {
+        return undefined;
+    }
+
+    const candidates = [
+        geojson_string,
+        geojson_string.trim(),
+        geojson_string.replace(/^"|"$/g, ''),
+        geojson_string.replace(/\\"/g, '"'),
+        geojson_string.replace(/\\/g, ''),
+    ];
+
+    for (const candidate of candidates) {
+        try {
+            const decoded = parseGeoJSONCandidate(candidate);
+            if (decoded) {
+                return decoded;
+            }
+        } catch {
+            // Try the next candidate format.
+        }
+    }
+
+    return undefined;
 };

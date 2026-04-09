@@ -28,6 +28,26 @@ import * as turf from '@turf/turf';
 import type { FeatureCollection, Point } from 'geojson';
 import { WidgetTitle } from '../WidgetTitle';
 
+const INVALID_SPATIAL_FILE_MESSAGE =
+    'Unable to process this spatial file. Please upload a valid shapefile zip and try again.';
+
+const getServerErrorMessage = (error: unknown, fallback: string) => {
+    if (error && typeof error === 'object') {
+        const errorResponseData = (error as { response?: { data?: unknown } }).response?.data;
+
+        if (errorResponseData && typeof errorResponseData === 'object') {
+            const responseData = errorResponseData as {
+                message?: string;
+            };
+
+            if (typeof responseData.message === 'string' && responseData.message.trim().length > 0) {
+                return responseData.message;
+            }
+        }
+    }
+    return fallback;
+};
+
 const schema = yup
     .object({
         markerLabel: yup.string().max(30, 'Markel label cannot exceed 30 characters'),
@@ -84,6 +104,19 @@ const MapForm = () => {
         'filename',
     ]);
 
+    const validateAndLoadShapeFile = async (file: File) => {
+        const previewGeoJson = (await previewShapeFile({
+            file,
+        })) as unknown as FeatureCollection<Point>;
+
+        updateZoom(previewGeoJson);
+        const centerPoint = turf.center(previewGeoJson);
+        methods.setValue('longitude', centerPoint.geometry.coordinates[0]);
+        methods.setValue('latitude', centerPoint.geometry.coordinates[1]);
+
+        return previewGeoJson;
+    };
+
     const createMap = async (data: DetailsForm) => {
         if (!widget) {
             return;
@@ -91,6 +124,15 @@ const MapForm = () => {
 
         const validatedData = await schema.validate(data);
         const { latitude, longitude, markerLabel, shapefile } = validatedData;
+
+        if (shapefile) {
+            try {
+                await previewShapeFile({ file: shapefile });
+            } catch (error) {
+                throw new Error(getServerErrorMessage(error, INVALID_SPATIAL_FILE_MESSAGE));
+            }
+        }
+
         await postMap(widget.id, {
             widget_id: widget.id,
             engagement_id: widget.engagement_id,
@@ -113,7 +155,12 @@ const MapForm = () => {
             reset({});
             handleWidgetDrawerOpen(false);
         } catch (error) {
-            dispatch(openNotification({ severity: 'error', text: 'An error occurred while trying to add event' }));
+            dispatch(
+                openNotification({
+                    severity: 'error',
+                    text: getServerErrorMessage(error, INVALID_SPATIAL_FILE_MESSAGE),
+                }),
+            );
             setIsCreating(false);
         }
     };
@@ -126,10 +173,17 @@ const MapForm = () => {
             return;
         }
         if (shapefile) {
-            previewGeoJson = await previewShapeFile({
-                file: shapefile,
-            });
-            updateZoom(previewGeoJson);
+            try {
+                previewGeoJson = await validateAndLoadShapeFile(shapefile);
+            } catch (error) {
+                dispatch(
+                    openNotification({
+                        severity: 'error',
+                        text: getServerErrorMessage(error, INVALID_SPATIAL_FILE_MESSAGE),
+                    }),
+                );
+                return;
+            }
         }
         setPreviewMap({
             longitude: validatedData.longitude,
@@ -141,22 +195,30 @@ const MapForm = () => {
     };
 
     const handleAddFile = async (files: File[]) => {
-        let previewGeoJson: turf.AllGeoJSON | GeoJSON | undefined;
         if (files.length > 0) {
-            methods.setValue('shapefile', files[0]);
-            previewGeoJson = (await previewShapeFile({
-                file: files[0],
-            })) as unknown as FeatureCollection<Point>;
             setCalculatingZoom(true);
-            updateZoom(previewGeoJson);
-            const centerPoint = turf.center(previewGeoJson as FeatureCollection<Point>);
-            methods.setValue('longitude', centerPoint.geometry.coordinates[0]);
-            methods.setValue('latitude', centerPoint.geometry.coordinates[1]);
-            setCalculatingZoom(false);
-            return;
+            try {
+                await validateAndLoadShapeFile(files[0]);
+                methods.setValue('shapefile', files[0]);
+                methods.setValue('filename', undefined);
+                return true;
+            } catch (error) {
+                methods.setValue('shapefile', undefined);
+                dispatch(
+                    openNotification({
+                        severity: 'error',
+                        text: getServerErrorMessage(error, INVALID_SPATIAL_FILE_MESSAGE),
+                    }),
+                );
+                return false;
+            } finally {
+                setCalculatingZoom(false);
+            }
         }
+
         methods.setValue('shapefile', undefined);
         setUploadName('');
+        return true;
     };
 
     if (isLoadingMap) {

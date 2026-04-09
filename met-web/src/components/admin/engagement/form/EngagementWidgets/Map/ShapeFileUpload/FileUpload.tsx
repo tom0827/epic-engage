@@ -4,7 +4,7 @@ import Uploader from './Uploader';
 import { Accept } from 'react-dropzone';
 
 interface UploaderProps {
-    handleAddFile: (_files: File[]) => void;
+    handleAddFile: (_files: File[]) => Promise<boolean>;
     savedFile?: File;
     savedFileName?: string;
     acceptedFormat?: Accept;

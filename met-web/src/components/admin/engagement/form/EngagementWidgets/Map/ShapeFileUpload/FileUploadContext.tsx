@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 
 export interface FileUploadContextState {
-    handleAddFile: (_files: File[]) => void;
+    handleAddFile: (_files: File[]) => Promise<boolean>;
     savedFileName: string;
     addedFileName: string;
     setAddedFileName: React.Dispatch<React.SetStateAction<string>>;
@@ -19,7 +19,7 @@ export const FileUploadContext = createContext<FileUploadContextState>({
 });
 
 interface FileUploadContextProviderProps {
-    handleAddFile: (_files: File[]) => void;
+    handleAddFile: (_files: File[]) => Promise<boolean>;
     children: React.ReactNode;
     savedFileName: string;
 }

@@ -19,9 +19,14 @@ const Uploader = ({ acceptedFormat = { 'application/zip': ['.zip'] } }: Uploader
             <>
                 <Dropzone
                     accept={acceptedFormat}
-                    onDrop={(acceptedFiles) => {
-                        handleAddFile(acceptedFiles);
-                        setAddedFileName(acceptedFiles[0].name);
+                    onDrop={async (acceptedFiles) => {
+                        if (!acceptedFiles.length) {
+                            setAddedFileName('');
+                            return;
+                        }
+
+                        const uploadSucceeded = await handleAddFile(acceptedFiles);
+                        setAddedFileName(uploadSucceeded ? acceptedFiles[0].name : '');
                     }}
                 >
                     {({ getInputProps, open }) => (
@@ -62,9 +67,14 @@ const Uploader = ({ acceptedFormat = { 'application/zip': ['.zip'] } }: Uploader
     return (
         <Dropzone
             accept={acceptedFormat}
-            onDrop={(acceptedFiles) => {
-                handleAddFile(acceptedFiles);
-                setAddedFileName(acceptedFiles[0].name);
+            onDrop={async (acceptedFiles) => {
+                if (!acceptedFiles.length) {
+                    setAddedFileName('');
+                    return;
+                }
+
+                const uploadSucceeded = await handleAddFile(acceptedFiles);
+                setAddedFileName(uploadSucceeded ? acceptedFiles[0].name : '');
             }}
         >
             {({ getInputProps, open }) => (
