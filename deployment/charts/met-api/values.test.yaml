@@ -1,0 +1,48 @@
+image:
+  repository: image-registry.openshift-image-registry.svc:5000/c72cba-tools/met-api
+  pullPolicy: Always
+  namespace: c72cba-tools
+  tag: "test"
+
+corsOrigin: 'https://epic-engage-web-test.apps.gold.devops.gov.bc.ca/,https://epic-engage-web-test.apps.gold.devops.gov.bc.ca/,http://localhost:4300,https://test.engage.eao.gov.bc.ca,https://www.test.projects.eao.gov.bc.ca,,https://test.projects.eao.gov.bc.ca'
+resources:
+  cpu:
+    limit: 100m
+    request: 75m
+  memory:
+    limit: 512Mi
+    request: 100Mi
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+routeHost: 'epic-engage-web-test.apps.gold.devops.gov.bc.ca'
+
+configMapData:
+  IS_SINGLE_TENANT_ENVIRONMENT: 'true'
+  KEYCLOAK_CLIENT_ID: epic-engage
+  KEYCLOAK_URL: 'https://test.loginproxy.gov.bc.ca/auth'
+  PENGUIN_ANALYTICS_URL: 'https://penguin-analytics-api-c72cba-test.apps.gold.devops.gov.bc.ca/analytics'
+  EAO_VERIFICATION_EMAIL_TEMPLATE_ID: c4cc1633-321a-4400-8a22-272acecd836a
+  ACCESS_REQUEST_EMAIL_ADDRESS: carly.greenehill@gov.bc.ca
+  SUBSCRIBE_EMAIL_TEMPLATE_ID: 9cd4942b-8ac9-49ae-a869-c800c57a7472
+  ANALYTICS_ENABLED: 'true'
+  CLOSED_ENGAGEMENT_REJECTED_EMAIL_TEMPLATE_ID: e942dea1-094e-4021-9aac-21a0ac1f240d
+  PENGUIN_ANALYTICS_SOURCE_APP: epic-engage
+  EAO_ENGAGEMENT_CLOSEOUT: 8c76a4dc-eec2-439b-8234-4c95234f128d
+  KEYCLOAK_REALMNAME: eao-epic
+  KEYCLOAK_BASE_URL: 'https://test.loginproxy.gov.bc.ca'
+  NOTIFICATIONS_EMAIL_ENDPOINT: 'https://epic-engage-notify-api-test.apps.gold.devops.gov.bc.ca/api/v1/notifications/email'
+  EMAIL_ENVIRONMENT: You are using a Test environment
+  ACCESS_REQUEST_EMAIL_TEMPLATE_ID: 41afa792-4c75-425a-9ad9-c558561d6669
+  IS_EAO_ENVIRONMENT: 'true'
+  SUBMISSION_RESPONSE_EMAIL_TEMPLATE_ID: 07f0f037-5ccb-44c5-89c6-9fe86078323e
+  PENGUIN_ANALYTICS_ENABLED: 'true'
+  SITE_URL: 'https://test.engage.eao.gov.bc.ca'
+  VERIFICATION_EMAIL_TEMPLATE_ID: c4cc1633-321a-4400-8a22-272acecd836a
+  EAO_SUBMISSION_REPORT: 07f0f037-5ccb-44c5-89c6-9fe86078323e
+  REJECTED_EMAIL_TEMPLATE_ID: 8410c055-587b-4788-bd2f-b563562bcb2d

@@ -1,0 +1,23 @@
+image:
+  repository: image-registry.openshift-image-registry.svc:5000/c72cba-tools/analytics-api
+  pullPolicy: Always
+  namespace: c72cba-tools
+  tag: "dev"
+
+corsOrigin: 'https://epic-engage-web-dev.apps.gold.devops.gov.bc.ca/,https://epic-engage-web-dev.apps.gold.devops.gov.bc.ca,http://localhost:4300,https://dev.engage.eao.gov.bc.ca'
+resources:
+  cpu:
+    limit: 100m
+    request: 75m
+  memory:
+    limit: 200Mi
+    request: 100Mi
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+routeHost: 'epic-engage-analytics-api-dev.apps.gold.devops.gov.bc.ca'

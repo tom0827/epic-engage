@@ -1,0 +1,32 @@
+image:
+  repository: image-registry.openshift-image-registry.svc:5000/c72cba-tools/met-cron
+  pullPolicy: Always
+  namespace: c72cba-tools
+  tag: "dev"
+
+replicaCount: 1
+
+resources:
+  cpu:
+    limit: 100m
+    request: 100m
+  memory:
+    limit: 512Mi
+    request: 100Mi
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+configMapData:
+  IS_SINGLE_TENANT_ENVIRONMENT: 'true'
+  OFFSET_DAYS: '2'
+  ENGAGEMENT_CLOSING_SOON_EMAIL_TEMPLATE_ID: 30344886-ea33-4ca2-83e1-e5ebe9c3457d
+  N_DAYS: '1'
+  CLOSED_ENGAGEMENT_REJECTED_EMAIL_TEMPLATE_ID: e942dea1-094e-4021-9aac-21a0ac1f240d
+  PUBLISH_ENGAGEMENT_EMAIL_TEMPLATE_ID: 7bf2ffcd-d69e-4c3f-9aa0-e8e89b491e92
+  NOTIFICATIONS_EMAIL_ENDPOINT: 'https://epic-engage-notify-api-dev.apps.gold.devops.gov.bc.ca/api/v1/notifications/email'
+  EMAIL_ENVIRONMENT: You are using a DEV environment
+  ENGAGEMENT_CLOSEOUT_EMAIL_TEMPLATE_ID: b7ea041b-fc30-4ad3-acb2-82119dd4f95d
+  SITE_URL: 'https://dev.engage.eao.gov.bc.ca'

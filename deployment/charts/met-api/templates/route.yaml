@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  host: {{ .Values.routeHost }}
+  path: /api
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  port:
+    targetPort: {{ .Values.service.targetPort }}
+  to:
+    kind: Service
+    name: "{{ .Chart.Name }}"
+  wildcardPolicy: None

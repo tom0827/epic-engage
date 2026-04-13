@@ -36,6 +36,7 @@ from .engagement_settings import API as ENGAGEMENT_SETTINGS_API
 from .engagement_slug import API as ENGAGEMENT_SLUG_API
 from .feedback import API as FEEDBACK_API
 from .image_info import API as IMAGE_INFO
+from .ops import API as OPS_API
 from .report_setting import API as REPORT_SETTING_API
 from .settings import API as SETTINGS_API
 from .shape_file import API as SHAPEFILE_API
@@ -84,6 +85,7 @@ API.add_namespace(ENGAGEMENT_METADATA_API)
 API.add_namespace(SHAPEFILE_API)
 API.add_namespace(TENANT_API)
 API.add_namespace(IMAGE_INFO)
+API.add_namespace(OPS_API)
 API.add_namespace(SETTINGS_API)
 API.add_namespace(THREAT_CONTACT_API)
 API.add_namespace(ENGAGEMENT_MEMBERS_API, path='/engagements/<string:engagement_id>/members')

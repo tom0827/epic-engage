@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    name: {{ .Chart.Name }}
+data:
+  IS_SINGLE_TENANT_ENVIRONMENT: "{{ .Values.configMapData.IS_SINGLE_TENANT_ENVIRONMENT }}"
+  OFFSET_DAYS: "{{ .Values.configMapData.OFFSET_DAYS }}"
+  ENGAGEMENT_CLOSING_SOON_EMAIL_TEMPLATE_ID: {{ .Values.configMapData.ENGAGEMENT_CLOSING_SOON_EMAIL_TEMPLATE_ID }}
+  N_DAYS: "{{ .Values.configMapData.N_DAYS }}"
+  CLOSED_ENGAGEMENT_REJECTED_EMAIL_TEMPLATE_ID: {{ .Values.configMapData.CLOSED_ENGAGEMENT_REJECTED_EMAIL_TEMPLATE_ID }}
+  PUBLISH_ENGAGEMENT_EMAIL_TEMPLATE_ID: {{ .Values.configMapData.PUBLISH_ENGAGEMENT_EMAIL_TEMPLATE_ID }}
+  NOTIFICATIONS_EMAIL_ENDPOINT: {{ .Values.configMapData.NOTIFICATIONS_EMAIL_ENDPOINT }}
+  EMAIL_ENVIRONMENT: {{ .Values.configMapData.EMAIL_ENVIRONMENT }}
+  ENGAGEMENT_CLOSEOUT_EMAIL_TEMPLATE_ID: {{ .Values.configMapData.ENGAGEMENT_CLOSEOUT_EMAIL_TEMPLATE_ID }}
+  SITE_URL: {{ .Values.configMapData.SITE_URL }}

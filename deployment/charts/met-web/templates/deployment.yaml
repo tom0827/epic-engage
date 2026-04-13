@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.app.name }}
+  name: {{ .Chart.Name }}
+  annotations:
+    # Add timestamp annotation to force update on deployment
+    deployment.kubernetes.io/revision: "{{ .Release.Revision }}"
+    # Add image hash to force update when image changes
+    checksum/image: {{ include "met-web.imageHash" . }}
+    # Add config hash to force update when config changes
+    checksum/config: {{ include "met-web.configHash" . }}
+spec:
+  replicas: {{ .Values.replicas.count }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+      annotations:
+        # Add image hash to pod template to force update when image changes
+        checksum/image: {{ include "met-web.imageHash" . }}
+        # Add config hash to pod template to force update when config changes
+        checksum/config: {{ include "met-web.configHash" . }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}/{{ tpl .Values.image.name . }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: {{ .Values.resources.cpu.limit }}
+            memory: {{ .Values.resources.memory.limit }}
+          requests:
+            cpu: {{ .Values.resources.cpu.request }}
+            memory: {{ .Values.resources.memory.request }}
+        env:
+          - name: ENV
+            value: {{ .Values.app.env | quote }}
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+          - mountPath: /usr/share/nginx/html/config/
+            name: met-web-config
+            readOnly: true
+          - mountPath: /etc/nginx/.htpasswd
+            name: met-web-secret-volume
+            readOnly: true
+            subPath: htpasswd
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: met-web
+          name: met-web-config
+        - name: met-web-secret-volume
+          secret:
+            defaultMode: 420
+            secretName: nginx-base-auth-secret
