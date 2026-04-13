@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        resources:
+          limits:
+            cpu: {{ .Values.resources.cpu.limit }}
+            memory: {{ .Values.resources.memory.limit }}
+          requests:
+            cpu: {{ .Values.resources.cpu.request }}
+            memory: {{ .Values.resources.memory.request }}
+        env:
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: met-database-users
+                  key: analytics-username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: met-database-users
+                  key: analytics-password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: met-patroni
+                  key: app-db-name
+            - name: DATABASE_HOST
+              value: met-patroni16
+            - name: DATABASE_PORT
+              value: '5432'
+            - name: MET_DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: met-database-users
+                  key: met-username
+            - name: MET_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: met-database-users
+                  key: met-password
+            - name: MET_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: met-patroni
+                  key: app-db-name
+            - name: MET_DATABASE_HOST
+              value: met-patroni16
+            - name: MET_DATABASE_PORT
+              value: '5432'
+            - name: EMAIL_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: met-api
+                  key: EMAIL_SECRET_KEY
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

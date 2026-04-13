@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}
+data:
+  config.js: |-
+    window["_env_"] = {
+      "NODE_ENV": "{{ .Values.app.node_env }}",
+      "VITE_API_URL": "{{ .Values.app.api }}",
+      "VITE_ANALYTICS_API_URL": "{{ .Values.app.analytics_api }}",
+      "VITE_API_PROJECT_URL": "{{ .Values.formio.api_project_url }}",
+      "VITE_FORM_ID": "{{ .Values.formio.form_id }}",
+      "VITE_FORMIO_JWT_SECRET": "{{ .Values.formio.formio_jwt_secret }}",
+      "VITE_USER_RESOURCE_FORM_ID": "{{ .Values.formio.user_resource_form_id }}",
+      "VITE_ANONYMOUS_ID": "{{ .Values.formio.anonymous_id }}",
+      "VITE_KEYCLOAK_URL": "{{ .Values.keycloak.url }}",
+      "VITE_KEYCLOAK_CLIENT": "{{ .Values.keycloak.client }}",
+      "VITE_KEYCLOAK_REALM": "{{ .Values.keycloak.realm }}",
+      "VITE_REDASH_COMMENTS_PUBLIC_URL": "{{ .Values.redash.comments_public_url }}",
+      "VITE_REDASH_PUBLIC_URL": "{{ .Values.redash.public_url }}",
+      "VITE_PENGUIN_URL": "{{ .Values.penguin.url }}",
+      "VITE_PENGUIN_ENABLED": "{{ .Values.penguin.enabled }}",
+      "VITE_DEFAULT_TENANT": "{{ .Values.tenant.default_tenant }}",
+      "VITE_IS_SINGLE_TENANT_ENVIRONMENT": "{{ .Values.tenant.is_single_tenant_environment }}",
+      "VITE_CENTRE_API_URL": "{{ .Values.tenant.centre_api_url }}"
+    }

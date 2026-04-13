@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ .Chart.Name }}"
+  name: "{{ .Chart.Name }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      initContainers:
+      - name: pre-hook
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command: ["/opt/app-root/pre-hook-update-db.sh"]
+        env:
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: met-database-users
+              key: met-username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: met-database-users
+              key: met-password
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: met-patroni
+              key: app-db-name
+        - name: DATABASE_HOST
+          value: met-patroni16
+        - name: CORS_ORIGIN
+          value: {{ .Values.corsOrigin }}
+        - name: DATABASE_PORT
+          value: '5432'
+        resources:
+          limits:
+            cpu: {{ .Values.resources.cpu.limit }}
+            memory: {{ .Values.resources.memory.limit }}
+          requests:
+            cpu: {{ .Values.resources.cpu.request }}
+            memory: {{ .Values.resources.memory.request }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        resources:
+          limits:
+            cpu: {{ .Values.resources.cpu.limit }}
+            memory: {{ .Values.resources.memory.limit }}
+          requests:
+            cpu: {{ .Values.resources.cpu.request }}
+            memory: {{ .Values.resources.memory.request }}
+        # readinessProbe:
+        #   httpGet:
+        #     path: /api/readyz
+        #     port: 8080
+        #     scheme: HTTP
+        #   timeoutSeconds: 10
+        #   periodSeconds: 10
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /api/healthz
+        #     port: 8080
+        #     scheme: HTTP
+        #   timeoutSeconds: 10
+        #   periodSeconds: 10
+        #   successThreshold: 1
+        #   failureThreshold: 3
+        env:
+          - name: FLASK_ENV
+            value: development
+          - name: DATABASE_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: met-username
+                name: met-database-users
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: met-password
+                name: met-database-users
+          - name: DATABASE_NAME
+            valueFrom:
+              secretKeyRef:
+                key: app-db-name
+                name: met-patroni
+          - name: DATABASE_HOST
+            value: met-patroni16
+          - name: S3_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: secret-access-key
+                name: s3
+          - name: CORS_ORIGIN
+            value: {{ .Values.corsOrigin }}
+          - name: DATABASE_PORT
+            value: "5432"
+          - name: IS_EAO_ENVIRONMENT
+            value: "True"
+          - name: EMAIL_SECRET_KEY
+            valueFrom:
+              configMapKeyRef:
+                key: EMAIL_SECRET_KEY
+                name: met-api
+        envFrom:
+          - configMapRef:
+              name: met-api
+          - configMapRef:
+              name: jwt-oidc
+          - configMapRef:
+              name: s3-objectstore
+          - secretRef:
+              name: engage-service-account
+          - secretRef:
+              name: met-cdogs-secret
+          - secretRef:
+              name: epic-keycloak-details
+          - secretRef:
+              name: epic-keycloak-details
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

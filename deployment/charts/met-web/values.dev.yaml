@@ -1,0 +1,42 @@
+app:
+  name: met-web
+  url: "https://epic-engage-web-dev.apps.gold.devops.gov.bc.ca"
+  api: https://epic-engage-web-dev.apps.gold.devops.gov.bc.ca/api
+  analytics_api: "https://epic-engage-analytics-api-dev.apps.gold.devops.gov.bc.ca/api"
+  env: dev
+  node_env: production
+formio:
+  api_project_url: https://formio-e903c2-dev.apps.gold.devops.gov.bc.ca
+  form_id: ""
+  formio_jwt_secret: ""
+  user_resource_form_id: ""
+  anonymous_id: ""
+resources:
+  cpu:
+    limit: 100m
+    request: 75m
+  memory:
+    limit: 500Mi
+    request: 250Mi
+image:
+  name: met-web
+  tag: dev
+  repository: image-registry.openshift-image-registry.svc:5000/c72cba-tools
+keycloak:
+  url: "https://dev.loginproxy.gov.bc.ca/auth"
+  client: epic-engage
+  realm: eao-epic
+redash:
+  comments_public_url: "https://met-analytics.apps.gold.devops.gov.bc.ca/public/dashboards/<COMMENTS_ASHBOARD_ID>?p_Engagement%20Name="
+  public_url: "https://met-analytics.apps.gold.devops.gov.bc.ca/public/dashboards/<PUBLIC_DASHBOARD_ID>?p_Engagement%20Name="
+penguin:
+  url: /analytics
+  enabled: "true"
+tenant:
+  default_tenant: eao
+  is_single_tenant_environment: "true"
+  centre_api_url: https://centre-api-c8b80a-dev.apps.gold.devops.gov.bc.ca
+service:
+  port: 8080
+replicas:
+  count: 1

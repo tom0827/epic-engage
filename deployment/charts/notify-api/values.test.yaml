@@ -1,0 +1,25 @@
+image:
+  repository: image-registry.openshift-image-registry.svc:5000/c72cba-tools/notify-api
+  pullPolicy: Always
+  namespace: c72cba-tools
+  tag: "test"
+
+resources:
+  cpu:
+    limit: 100m
+    request: 75m
+  memory:
+    limit: 512Mi
+    request: 100Mi
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+routeHost: 'epic-engage-notify-api-test.apps.gold.devops.gov.bc.ca'
+
+configMapData:
+  EMAIL_PROVIDER: "GC_NOTIFY"
