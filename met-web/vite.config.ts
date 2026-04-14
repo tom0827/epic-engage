@@ -64,6 +64,7 @@ export default defineConfig(({ mode }) => {
             sourcemap: true,
             commonjsOptions: {
                 include: [/met-formio/, /node_modules/],
+                exclude: [/node_modules\/react-map-gl\//],
                 transformMixedEsModules: true,
             },
         },
